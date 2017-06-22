@@ -11,4 +11,5 @@ class Handler(BaseHandler):
             echo_warning(self.nvim, msg['error'])
         else:
             path = msg['touched'][0]
-            self.nvim.call('edit', path)
+            self.nvim.command('edit {}'.format(path))
+
