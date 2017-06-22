@@ -87,14 +87,15 @@ class Handler(SingletonHandler):
 
         if no_shared_buffer or has_no_window:
             self.random = random.randint(0, 100)
-            cmds = [#'file acid://meta-repl-{}'.format(self.random),
+            cmds = ['file acid://meta-repl-{}'.format(self.random),
                     'nnoremap <buffer> <localleader><CR> :e<CR>',
                     'nnoremap <buffer> <localleader><localleader> kdggjdG',
                     'nnoremap <buffer> <localleader>D kdgg',
                     'nnoremap <buffer> <localleader>d jdG',
                     ]
-            if self.nvim.funcs.exists(':AnsiEsc'):
-                cmds.append('AnsiEsc')
+
+            # if self.nvim.funcs.exists(':AnsiEsc'):
+                # cmds.append('AnsiEsc')
 
             self.buf_nr = build_window(
                 self.nvim, close=1, commands=cmds, throwaway=1,
