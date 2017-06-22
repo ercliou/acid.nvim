@@ -77,17 +77,7 @@ class Handler(SingletonHandler):
     name = "MetaRepl"
     priority = 0
 
-    def on_init(self):
-        self.buf_nr = None
-        self.cmd_buf_nr = None
-
-    def insert_text(self, text):
-        self.nvim.buffers[self.buf_nr].append(text)
-        pos = len(self.nvim.buffers[self.buf_nr])
-        self.nvim.funcs.setpos('.', [self.buf_nr, pos , 1, 0])
-
-    def on_pre_handle(self, *_):
-
+    def ensure_win_exists(self):
         no_shared_buffer = self.buf_nr is None
         has_no_window = self.nvim.funcs.bufwinnr(self.buf_nr) == -1
 
@@ -104,6 +94,7 @@ class Handler(SingletonHandler):
                 self.nvim, close=1, commands=cmds, throwaway=1
             )
 
+    def ensure_cmd_win_exists(self):
         use_cmd_win = bool(self.nvim.vars.get(
             'acid_meta_repl_use_cmd_window', False
         ))
@@ -134,7 +125,22 @@ class Handler(SingletonHandler):
                               "let b:acid_ns_strategy='ns:user'"]
                 )
 
+
+    def on_init(self):
+        self.buf_nr = None
+        self.cmd_buf_nr = None
+
+    def insert_text(self, text):
+        self.nvim.buffers[self.buf_nr].append(text)
+        pos = len(self.nvim.buffers[self.buf_nr])
+        self.nvim.funcs.setpos('.', [self.buf_nr, pos , 1, 0])
+
+    def on_pre_handle(self, *_):
+        self.ensure_win_exists()
+        self.ensure_cmd_win_exists()
+
     def on_pre_send(self, msg, *_):
+        self.ensure_win_exists()
         [self.insert_text(i) for i in format_payload(msg) if not i.isspace()]
 
     def on_handle(self, msg, *_):
