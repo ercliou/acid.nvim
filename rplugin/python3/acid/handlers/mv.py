@@ -6,9 +6,6 @@ class Handler(BaseHandler):
     name = "MvSingle"
     priority = 0
 
-    def on_init(self):
-        self.value = []
-
     def on_handle(self, msg, *_):
         if 'error' in msg:
             echo_warning(self.nvim, msg['error'])
