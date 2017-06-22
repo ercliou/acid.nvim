@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import random
 from acid.handlers import SingletonHandler
 from acid.zen.ui import build_window
 from acid.nvim.log import log_debug, log_info, log_warning, log_error
@@ -85,7 +86,8 @@ class Handler(SingletonHandler):
         log_debug("has window? {}", has_no_window)
 
         if no_shared_buffer or has_no_window:
-            cmds = ['file acid://meta-repl-{}'.format(self.buf_nr or 0),
+            self.random = random.randint(0, 100)
+            cmds = ['file acid://meta-repl-{}'.format(self.random),
                     'nnoremap <buffer> <localleader><CR> :e<CR>',
                     'nnoremap <buffer> <localleader><localleader> kdggjdG',
                     'nnoremap <buffer> <localleader>D kdgg',
@@ -126,7 +128,7 @@ class Handler(SingletonHandler):
                     throwaway=1,
                     orientation="rightbelow 20 split",
                     commands=['file acid://meta-repl-{}/scratchpad'.format(
-                                  self.buf_nr or 0),
+                                    self.random),
                               'set ft=clojure',
                               send,
                               "let b:acid_ns_strategy='ns:user'"]
