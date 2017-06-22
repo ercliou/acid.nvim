@@ -94,9 +94,6 @@ class Handler(SingletonHandler):
                     'nnoremap <buffer> <localleader>d jdG',
                     ]
 
-            # if self.nvim.funcs.exists(':AnsiEsc'):
-                # cmds.append('AnsiEsc')
-
             self.buf_nr = build_window(
                 self.nvim, close=1, commands=cmds, throwaway=1,
             )
