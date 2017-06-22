@@ -15,7 +15,7 @@ class Command(BaseCommand):
 
     def prepare_payload(self, path):
         current = current_file(self.nvim)
-        root = current_path()
+        root = current_path(nvim)
         final = os.path.join(root, 'src', *path.replace('-', '_').split('.'))
         return {"old-path": current, "new-path": final}
 
