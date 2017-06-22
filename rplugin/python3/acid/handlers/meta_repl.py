@@ -81,6 +81,9 @@ class Handler(SingletonHandler):
         no_shared_buffer = self.buf_nr is None
         has_no_window = self.nvim.funcs.bufwinnr(self.buf_nr) == -1
 
+        log_debug("buf_nr is {}", self.buf_nr)
+        log_debug("has window? {}", has_no_window)
+
         if no_shared_buffer or has_no_window:
             cmds = ['file acid://meta-repl',
                     'nnoremap <buffer> <localleader><CR> :e<CR>',
@@ -93,6 +96,7 @@ class Handler(SingletonHandler):
             self.buf_nr = build_window(
                 self.nvim, close=1, commands=cmds, throwaway=1
             )
+            log_debug("Set buf_nr to {}", self.buf_nr)
 
     def ensure_cmd_win_exists(self):
         use_cmd_win = bool(self.nvim.vars.get(
