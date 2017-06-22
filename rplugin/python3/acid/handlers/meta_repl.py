@@ -94,7 +94,7 @@ class Handler(SingletonHandler):
                 cmds.append('AnsiEsc')
 
             self.buf_nr = build_window(
-                self.nvim, close=1, commands=cmds,
+                self.nvim, close=1, commands=cmds, throwaway=1
             )
             log_debug("Set buf_nr to {}", self.buf_nr)
 
@@ -143,7 +143,7 @@ class Handler(SingletonHandler):
 
     def on_pre_handle(self, *_):
         self.ensure_win_exists()
-        self.ensure_cmd_win_exists()
+        # self.ensure_cmd_win_exists()
 
     def on_pre_send(self, msg, *_):
         self.ensure_win_exists()
