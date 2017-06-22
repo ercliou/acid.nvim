@@ -85,7 +85,7 @@ class Handler(SingletonHandler):
         log_debug("has window? {}", has_no_window)
 
         if no_shared_buffer or has_no_window:
-            cmds = ['file acid://meta-repl',
+            cmds = ['file acid://meta-repl-{}'.format(self.buf_nr or 0),
                     'nnoremap <buffer> <localleader><CR> :e<CR>',
                     'nnoremap <buffer> <localleader><localleader> kdggjdG',
                     'nnoremap <buffer> <localleader>D kdgg',
@@ -94,7 +94,7 @@ class Handler(SingletonHandler):
                 cmds.append('AnsiEsc')
 
             self.buf_nr = build_window(
-                self.nvim, close=1, commands=cmds,
+                self.nvim, close=1, commands=cmds, throwaway=1,
             )
             log_debug("Set buf_nr to {}", self.buf_nr)
 
@@ -125,7 +125,8 @@ class Handler(SingletonHandler):
                     close=1,
                     throwaway=1,
                     orientation="rightbelow 20 split",
-                    commands=['file acid://scratchpad',
+                    commands=['file acid://meta-repl-{}/scratchpad'.format(
+                                  self.buf_nr or 0),
                               'set ft=clojure',
                               send,
                               "let b:acid_ns_strategy='ns:user'"]
