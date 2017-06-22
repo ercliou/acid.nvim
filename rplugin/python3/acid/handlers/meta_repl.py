@@ -94,7 +94,7 @@ class Handler(SingletonHandler):
                 cmds.append('AnsiEsc')
 
             self.buf_nr = build_window(
-                self.nvim, close=1, commands=cmds, throwaway=1
+                self.nvim, close=1, commands=cmds,
             )
             log_debug("Set buf_nr to {}", self.buf_nr)
 
@@ -102,6 +102,8 @@ class Handler(SingletonHandler):
         use_cmd_win = bool(self.nvim.vars.get(
             'acid_meta_repl_use_cmd_window', False
         ))
+
+        log_debug("use cmd win? is {}", self.use_cmd_win)
 
         if use_cmd_win:
             no_cmd = self.cmd_buf_nr is None
