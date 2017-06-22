@@ -9,7 +9,7 @@ class Command(BaseCommand):
     priority = 0
     nargs = 1
     cmd_name = 'AcidRename'
-    handlers = ['Echo']
+    handlers = ['MvSingle']
     prompt = 1
     op = "rename-file-or-dir"
 
