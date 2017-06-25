@@ -137,7 +137,7 @@ class Acid(object):
                  meta_key, cmd, args)
 
         command = self.extensions['commands'].get(cmd.strip())
-        ret = getattr(command, meta_key, lambda *args: None)(self.nvim, *args)
+        ret = getattr(command, meta_key)(self.nvim, *args)
         log_info(r"Got {} as a return for {}[{}]".format(ret, cmd, meta_key))
         return ret
 
