@@ -130,6 +130,15 @@ class Acid(object):
         command = self.extensions['commands'].get(cmd.strip())
         command.call(self, self.context(), *args)
 
+    @neovim.function("AcidCommandMeta", sync=True)
+    def acid_command(self, args):
+        cmd, meta_key, *args = args
+        log_info(r"Prompting metadata {} for command {} with args {}",
+                 meta_key, cmd, args)
+
+        command = self.extensions['commands'].get(cmd.strip())
+        return getattr(command, meta_key, lambda *args: None)(self.nvim, *args)
+
     @neovim.function("AcidSendNrepl")
     def acid_eval(self, data):
         payload = data[0]
@@ -158,3 +167,8 @@ class Acid(object):
     @neovim.function("AcidGetUrl", sync=True)
     def acid_get_url(self, args):
         return repl_host_address(self.nvim)
+
+    @neovim.command("AcidDescribeAll", nargs=0)
+    def acid_describe_all(self):
+        pass
+

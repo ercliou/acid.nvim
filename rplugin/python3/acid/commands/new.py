@@ -5,7 +5,6 @@ from acid.nvim.log import warning
 import os
 
 
-
 class Command(BaseCommand):
 
     name = 'NewFile'

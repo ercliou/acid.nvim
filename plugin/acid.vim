@@ -12,9 +12,10 @@ function! AcidOpfunc(callback, block)
   exec a:callback s:ret
 endfunction
 
-function! AcidPrompt(callback, txt)
+function! AcidPrompt(callback, has_default)
+  let txt = a:has_default == 1 ? AcidCommandMeta('prompt_default'), ''
   call inputsave()
-  let s:ret = input(a:callback . " → ", a:txt)
+  let s:ret = input(a:callback . " → ")
   call inputrestore()
   exec a:callback s:ret
 endfunction
