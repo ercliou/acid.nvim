@@ -11,7 +11,6 @@ class Command(BaseCommand):
     priority = 0
     nargs=1
     prompt=1
-    cmd_name = 'AcidNewFile'
     handlers = {'Ignore': '', 'DoAutocmd': 'AcidRequired'}
     op = "eval"
     mapping = '<leader>N'

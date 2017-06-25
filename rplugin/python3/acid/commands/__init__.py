@@ -1,7 +1,7 @@
 from acid.nvim import get_customization_variable, log, convert_case
 import functools
 
-opfunc_forwarder = """function! {}OpfuncFw(block)
+opfunc_forwarder = """function! Acid{}OpfuncFw(block)
     call AcidOpfunc('{}', a:block)
 endfunction
 """
@@ -44,7 +44,7 @@ class BaseCommand(object):
     @classmethod
     def build_interfaces(cls, nvim):
         cmd = []
-        cmd_name = getattr(cls, 'cmd_name')
+        cmd_name = getattr(cls, 'name')
 
         if not cmd_name:
             return
@@ -59,7 +59,7 @@ class BaseCommand(object):
             )
         )
 
-        mapping_var = "{}_command_mapping".format(convert_case(cmd_name))
+        mapping_var = "acid_{}_command_mapping".format(convert_case(cmd_name))
 
         mapping = getattr(cls, 'mapping', None)
         opfunc = getattr(cls, 'opfunc', False)
@@ -78,11 +78,11 @@ class BaseCommand(object):
             mapping = nvim.vars.get(mapping_var, mapping)
             cmd.append(opfuncfw(cmd_name))
             cmd.append(silent_map(
-                mapping, ':set opfunc={}OpfuncFw<CR>g@'.format(cmd_name)
+                mapping, ':set opfunc=Acid{}OpfuncFw<CR>g@'.format(cmd_name)
             ))
 
         if hasattr(cls, 'shorthand'):
-            shorthand_mapping = "{}_shorthand_mapping".format(
+            shorthand_mapping = "acid_{}_shorthand_mapping".format(
                 convert_case(cmd_name)
             )
             mapping = getattr(
