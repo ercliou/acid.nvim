@@ -5,7 +5,7 @@ opfunc_forwarder = """function! Acid{}OpfuncFw(block)
     call AcidOpfunc('{}', a:block)
 endfunction
 """
-prompt_fw = 'command! -buffer -nargs=0 {}Prompt call AcidPrompt("{}", "{}")'
+prompt_fw = 'command! -buffer -nargs=0 Acid{}Prompt call AcidPrompt("{}", "{}")'
 
 opfuncfw = lambda k: opfunc_forwarder.format(k, k)
 silent_map = lambda *s: "noremap <silent> <buffer> {} {}".format(*s)
