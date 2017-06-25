@@ -3,8 +3,7 @@ from acid.nvim.log import log_debug, log_warning
 
 
 def path_to_ns(path):
-    return path.replace("_", "-").split('/')[1:]
-
+    path = path.replace("_", "-").split('/')[1:]
     raw_path_list = None
 
     for ix, node in enumerate(reversed(path)):
