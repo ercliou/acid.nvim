@@ -15,4 +15,5 @@ class Command(BaseCommand):
     op = "macroexpand"
 
     def prepare_payload(self, *args):
-        return {'code': " ".join(args), 'expander': 'macroexpand-all'}
+        return {'code': "'{}".format(" ".join(args)),
+                'expander': 'macroexpand-all'}
