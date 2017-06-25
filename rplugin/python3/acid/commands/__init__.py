@@ -123,7 +123,7 @@ class BaseCommand(object):
         if not 'op' in payload:
             payload.update({'op': cls.op})
 
-        handlers_var = "{}_command_handler".format(convert_case(inst.cmd_name))
+        handlers_var = "acid_{}_command_handler".format(convert_case(inst.name))
 
         custom = get_customization_variable(
             acid.nvim, handlers_var, inst.handlers
