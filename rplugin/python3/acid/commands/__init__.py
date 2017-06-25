@@ -51,10 +51,10 @@ class BaseCommand(object):
 
         nargs = getattr(cls, 'nargs', 0)
         cmd.append(
-            'command! -buffer -nargs={} {} AcidCommand {} {}'.format(
+            'command! -buffer -nargs={} Acid{} AcidCommand {} {}'.format(
                 nargs,
                 cmd_name,
-                cls.name,
+                cmd_name,
                 (nargs != '0' and '<args>' or '')
             )
         )
