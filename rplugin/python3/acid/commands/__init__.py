@@ -98,11 +98,8 @@ class BaseCommand(object):
             ))
 
         if hasattr(cls, 'prompt'):
-            if hasattr(cls, 'prompt_default'):
-                txt = cls.prompt_default(nvim)
-            else:
-                txt = ''
-            cmd.append(prompt_fw.format(cmd_name, cmd_name, txt))
+            has_default = int(hasattr(cls, 'prompt_default'))
+            cmd.append(prompt_fw.format(cmd_name, cmd_name, has_default))
 
         return cmd
 

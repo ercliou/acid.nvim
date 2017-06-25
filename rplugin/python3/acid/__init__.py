@@ -131,7 +131,7 @@ class Acid(object):
         command.call(self, self.context(), *args)
 
     @neovim.function("AcidCommandMeta", sync=True)
-    def acid_command(self, args):
+    def acid_command_meta(self, args):
         cmd, meta_key, *args = args
         log_info(r"Prompting metadata {} for command {} with args {}",
                  meta_key, cmd, args)
