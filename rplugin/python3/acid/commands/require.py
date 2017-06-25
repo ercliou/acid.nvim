@@ -15,9 +15,6 @@ class Command(BaseCommand):
     shorthand_mapping = 'car'
     shorthand = 'normal! \\"syi]'
 
-    def on_init(self):
-        self.required_cache = {}
-
     def prepare_payload(self, *args):
         if len(args) == 0:
             ns = path_to_ns(self.nvim)
