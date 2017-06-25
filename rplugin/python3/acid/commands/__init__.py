@@ -70,9 +70,9 @@ class BaseCommand(object):
         if default_mapping:
             mapping = nvim.vars.get(mapping_var, mapping)
             if nargs in [0, '?', '*']:
-                cmd.append(silent_map(mapping, ':{}<CR>'.format(cmd_name)))
+                cmd.append(silent_map(mapping, ':Acid{}<CR>'.format(cmd_name)))
             elif hasattr(cls, 'prompt'):
-                cmd.append(silent_map(mapping, ':{}Prompt<CR>'.format(cmd_name)))
+                cmd.append(silent_map(mapping, ':Acid{}Prompt<CR>'.format(cmd_name)))
 
         elif motion_mapping:
             mapping = nvim.vars.get(mapping_var, mapping)
