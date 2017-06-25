@@ -28,7 +28,7 @@ class Command(BaseCommand):
         with open(path, 'w') as fpath:
             fpath.write('(ns {})'.format(ns))
 
-        self.nvim.nvim_command('silent edit {}'.format(path))
+        self.nvim.command('silent edit {}'.format(path))
 
         return {"code": "(require '[{}])".format(ns)}
 
