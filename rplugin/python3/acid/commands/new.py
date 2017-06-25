@@ -22,7 +22,8 @@ class Command(BaseCommand):
 
 
     def prepare_payload(self, ns):
-        path = os.path.join(current_path(neovim), 'src', ns_to_path(ns))
+        fname = "{}.clj".format(ns_to_path(ns))
+        path = os.path.join(current_path(self.nvim), 'src', fname)
 
         with open(path, 'w') as fpath:
             fpath.write('(ns {})'.format(ns))
