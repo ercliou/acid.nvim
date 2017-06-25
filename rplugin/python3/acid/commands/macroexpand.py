@@ -12,7 +12,7 @@ class Command(BaseCommand):
     shorthand = '''normal! mx$?^(\<lt>CR>\\"sy%`x'''
     opfunc = True
     nargs='*'
-    op = "macro-expand"
+    op = "macroexpand"
 
     def prepare_payload(self, *args):
         return {'code': " ".join(args), }
