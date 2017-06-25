@@ -5,7 +5,7 @@ opfunc_forwarder = """function! {}OpfuncFw(block)
     call AcidOpfunc('{}', a:block)
 endfunction
 """
-prompt_fw = 'command! -buffer -nargs=0 {}Prompt call AcidPrompt("{}", "{}")'
+prompt_fw = 'command! -buffer -nargs=0 {}Prompt call AcidPrompt("{}")'
 
 opfuncfw = lambda k: opfunc_forwarder.format(k, k)
 silent_map = lambda *s: "noremap <silent> <buffer> {} {}".format(*s)
@@ -98,11 +98,7 @@ class BaseCommand(object):
             ))
 
         if hasattr(cls, 'prompt'):
-            if hasattr(cls, 'prompt_default'):
-                txt = cls.prompt_default(nvim)
-            else:
-                txt = ''
-            cmd.append(prompt_fw.format(cmd_name, cmd_name, txt))
+            cmd.append(prompt_fw.format(cmd_name, cmd_name))
 
         return cmd
 
