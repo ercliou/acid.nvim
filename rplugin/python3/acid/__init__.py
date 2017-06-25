@@ -137,6 +137,10 @@ class Acid(object):
                  meta_key, cmd, args)
 
         command = self.extensions['commands'].get(cmd.strip())
+        if command is None:
+            log_warning('Command not found. Aborting!')
+            return None
+
         ret = getattr(command, meta_key)(self.nvim, *args)
         log_info(r"Got {} as a return for {}[{}]".format(ret, cmd, meta_key))
         return ret
