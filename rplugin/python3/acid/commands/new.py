@@ -17,6 +17,11 @@ class Command(BaseCommand):
     op = "eval"
     mapping = '<leader>N'
 
+    @staticmethod
+    def prompt_default(nvim):
+        path = nvim.funcs.expand('%:p:h')
+        return "{}.".format(path_to_ns(path))
+
 
     def prepare_payload(self, ns):
         path = os.path.join(current_path(neovim), 'src', ns_to_path(ns))
