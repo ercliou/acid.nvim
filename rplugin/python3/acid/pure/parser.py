@@ -55,9 +55,14 @@ def dump(tokens):
         else:
             form.append(leaf)
     if multi_forms:
-        return "".join(map(str, form))
+        joined = "".join(map(str, form))
     else:
-        return "({})".format(" ".join(map(str, form)))
+        joined = "({})".format(" ".join(map(str, form)))
+
+    if " # " in joined:
+        joined = ' #'.join(joined.split(' # '))
+
+    return joined
 
 
 def parse(program):
