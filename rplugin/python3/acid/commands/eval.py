@@ -1,4 +1,5 @@
 from acid.commands import BaseCommand
+from acid.pure import parser
 from acid.nvim import get_acid_ns, log
 
 
@@ -15,5 +16,7 @@ class Command(BaseCommand):
 
     def prepare_payload(self, *args):
         log.log_info('Evaluating {}'.format(str(args)))
+
+        code = parser.transform(" ".join(args), parser.remove_comment)
 
         return {"code": " ".join(args), "ns": get_acid_ns(self.nvim)}
