@@ -67,7 +67,8 @@ def parse(program):
 
 def remove_comment(tokens):
     tks = list(tokens)
-    tks.remove('comment')
+    if 'comment' in tks:
+        tks.remove('comment')
     return tks
 
 def transform(code, *token_fns):
