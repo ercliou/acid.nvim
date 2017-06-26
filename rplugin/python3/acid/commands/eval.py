@@ -19,4 +19,6 @@ class Command(BaseCommand):
 
         code = parser.transform(" ".join(args), parser.remove_comment)
 
-        return {"code": " ".join(args), "ns": get_acid_ns(self.nvim)}
+        log.log_info('Final code after transform {}'.format(code))
+
+        return {"code": code, "ns": get_acid_ns(self.nvim)}
