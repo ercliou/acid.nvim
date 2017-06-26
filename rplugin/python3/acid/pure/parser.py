@@ -49,7 +49,7 @@ def dump(tokens):
     multi_forms = type(tokens[0]) == list
     for leaf in tokens:
         if type(leaf) == list:
-            form.append(produce_code_from_ast(leaf))
+            form.append(dump(leaf))
             if multi_forms:
                 form.append('\n')
         else:
